@@ -127,5 +127,29 @@ input{
 }
 
 .m-1{
-  margin: 2%;
+  margin: 1%;
+}
+
+.p-3{
+  padding: 0.5%;
+}
+
+.card{
+  border: 2px solid #36b3fc;
+  text-align: center;
+  background-color: #9efafd;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.card-title{  
+  font-size: 1.5rem;
+  background-color: #6ce6f7;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 2px solid #36b3fc;
+}
+
+.card-description{
+  font-size: 1rem;
 }

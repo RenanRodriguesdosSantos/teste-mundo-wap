@@ -1,24 +1,22 @@
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import api from "../../service/api";
 import { getAllWidgets } from "./fetch";
-import { set_widgets } from "./reducer";
 
 const Dashboard = () => {
-    const widgets = useAppSelector(state => state.widgets);
+    const {widgets, authUser} = useAppSelector(state => state);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(getAllWidgets());
-    },[dispatch]);
+        dispatch(getAllWidgets(5));
+    }, [dispatch]);
 
-    return(
+    return (
         <div>
             <div className="row">
                 {
-                    widgets.map((row: any) => 
-                        <div className="col-md-3" key={row.id}>
-                            <h3>{row.title}</h3>
-                            <p>{row.description}</p>
+                    widgets.map((row: any) =>
+                        <div className="col-sm-3 col-md-2 card m-1" key={row.id}>
+                            <div className="card-title p-3">{row.title}</div>
+                            <div className="card-description">{row.description}</div>
                         </div>
                     )
                 }

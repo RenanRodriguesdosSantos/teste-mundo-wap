@@ -1,10 +1,10 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import AuthenticatedReducer from '../service/auth';
+import AuthenticatedUserReducer from '../service/auth';
 import WidgetsReducer from '../componentes/dashboard/reducer';
 
 export const store = configureStore({
   reducer: {
-    auth: AuthenticatedReducer,
+    authUser: AuthenticatedUserReducer,
     widgets: WidgetsReducer
   },
 });

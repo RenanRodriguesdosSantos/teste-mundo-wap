@@ -4,12 +4,12 @@ import Dashboard from './componentes/dashboard';
 import Login from './componentes/login';
 
 const PrivateRoute = ({ component: Component, ...rest }:any) => {
-	const isAuth = useAppSelector((state) => state.auth);
+	const authUser = useAppSelector((state) => state.authUser);
 	return (
 		<Route
 			{...rest}
 			render={props =>
-				isAuth ? (
+				authUser ? (
 					<Component {...props} />
 				) : (
 					<Redirect to={{ pathname: "/login", state: { from: props.location } }} />
