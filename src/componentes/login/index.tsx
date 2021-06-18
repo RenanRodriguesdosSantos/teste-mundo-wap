@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Logo from '../../images/logo-mundowap.png';
 import axios from 'axios';
-import { setUser } from "../../service/auth";
 import { Redirect } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
@@ -13,7 +12,6 @@ const Login = () => {
     }
     const dispatch = useAppDispatch();
     const isAuth = useAppSelector((state) => state.authUser);
-    var token = localStorage.getItem("token");
 
     const logar = () => {
         if (form.account && form.username && form.password) {
@@ -45,25 +43,14 @@ const Login = () => {
         }
     }
 
-    const setUserLogado = () => {
-        axios.post("https://api.xpto.ninja/v1/users/me", {}, {
-            headers: {
-                Authorization: "Bearer " + token,
-                Accept: 'application/json',
-                ContentType: 'application/json'
-            }
-        }).then(res => {
-            if(res.data.sucess){
-                dispatch(setUser(res.data.data));
-            }
-        })
-        return <Redirect to="/dashboard" />
-    }
-
-    return (
-        token ? setUserLogado() :
-            (
-                <div className="row h-center v-center" style={{ marginTop: 50 }}>
+    const isUserLogadoReload = () => {
+        const token  = localStorage.getItem("token");
+        if(token){
+            return <Redirect to="/dashboard" />
+        }
+        else{
+            return (
+                <div className="row h-center v-center" style={{ marginTop: 80 }}>
                     <form className="col-sm-5 col-md-3 col-lg-2">
                         <div className="row">
                             <div className="col-10 m-1">
@@ -90,7 +77,12 @@ const Login = () => {
                         </div>
                     </form>
                 </div>
-            )
+            );
+        }
+    }
+
+    return (
+        isAuth.id ? <Redirect to="/dashboard" /> : isUserLogadoReload() 
     );
 }
 

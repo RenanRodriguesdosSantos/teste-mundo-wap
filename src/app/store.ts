@@ -1,5 +1,5 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import AuthenticatedUserReducer from '../service/auth';
+import AuthenticatedUserReducer from '../componentes/login/reducer';
 import WidgetsReducer from '../componentes/dashboard/reducer';
 
 export const store = configureStore({
