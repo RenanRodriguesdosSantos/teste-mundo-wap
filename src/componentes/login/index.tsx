@@ -7,15 +7,13 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 
 const Login = () => {
     const [form, setForm] = useState({ account: '', username: '', password: '' });
+    const [message, setMessage] = useState("");
     const formChange = (e: any) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
     const dispatch = useAppDispatch();
     const isAuth = useAppSelector((state) => state.authUser);
     var token = localStorage.getItem("token");
-
-    // axios.defaults.headers.post['Accept'] = 'application/json';
-    // axios.defaults.headers.post['Content-Type'] = 'application/json';
 
     const logar = () => {
         if (form.account && form.username && form.password) {
@@ -30,12 +28,20 @@ const Login = () => {
                     localStorage.setItem("token", response.data.data.token);
                 }
             })
-            .catch(response => {
-                alert("Erro")
+            .catch(error => {
+                const divMessege = document.querySelector("#alert");
+                setMessage(error.response.data.data.message)
+                if(divMessege){
+                    divMessege.classList.remove("d-none");
+                }
             });
         }
         else {
-            alert("Preencha todos os campos")
+            const divMessege = document.querySelector("#alert");
+            setMessage("Preencha todos os campos")
+            if(divMessege){
+                divMessege.classList.remove("d-none");
+            }
         }
     }
 
@@ -77,6 +83,9 @@ const Login = () => {
                             </div>
                             <div className="col-10 m-1">
                                 <button type="button" onClick={logar} className="btn"> Login </button>
+                            </div>
+                            <div className="col-10 m-1">
+                                <div className="alert d-none" id="alert">{message}</div>
                             </div>
                         </div>
                     </form>
