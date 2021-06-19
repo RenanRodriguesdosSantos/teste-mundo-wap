@@ -5,7 +5,7 @@ export const getUser = () => {
     return ((dispatch: any) => {
         api.get("/users/me")
         .then(response => {
-            dispatch(setUser(response.data.data));
+            dispatch(setUser(response.data.data[0]));
         });
     });
 }

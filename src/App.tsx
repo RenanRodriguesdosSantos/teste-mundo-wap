@@ -21,7 +21,7 @@ const PrivateRoute = ({ component: Component, ...rest }:any) => {
 		<Route
 			{...rest}
 			render={props =>
-				authUser.id ? (
+				authUser ? (
 					<Component {...props} />
 				) : (
 					 isUserLogadoReload(props)

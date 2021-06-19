@@ -3,10 +3,10 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { getAllWidgets } from "./fetch";
 
 const Dashboard = () => {
-    const {widgets, authUser} = useAppSelector(state => state);
+    const widgets = useAppSelector(state => state.widgets);
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(getAllWidgets(5));
+            dispatch(getAllWidgets());
     }, [dispatch]);
 
     return (

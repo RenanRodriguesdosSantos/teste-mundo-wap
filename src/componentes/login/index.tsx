@@ -3,6 +3,7 @@ import Logo from '../../images/logo-mundowap.png';
 import axios from 'axios';
 import { Redirect } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import { getUser } from "./fetch";
 
 const Login = () => {
     const [form, setForm] = useState({ account: '', username: '', password: '' });
@@ -10,12 +11,12 @@ const Login = () => {
     const formChange = (e: any) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
-    const dispatch = useAppDispatch();
     const isAuth = useAppSelector((state) => state.authUser);
-
+    const dispatch = useAppDispatch();
+    
     const logar = () => {
         if (form.account && form.username && form.password) {
-            axios.post("https://api.xpto.ninja/v1/users/token", form, {
+            axios.post("https://api.xpto.ninja/v1/users/token", {...form, force: 1}, {
                 headers:{
                     Accept: 'application/json',
                     ContentType: 'application/json'
@@ -23,6 +24,7 @@ const Login = () => {
             })
             .then(response => {
                 if (response.data.success && response.data.data.token) {
+                    dispatch(getUser());
                     localStorage.setItem("token", response.data.data.token);
                 }
             })
@@ -82,7 +84,7 @@ const Login = () => {
     }
 
     return (
-        isAuth.id ? <Redirect to="/dashboard" /> : isUserLogadoReload() 
+        isAuth ? <Redirect to="/dashboard" /> : isUserLogadoReload() 
     );
 }
 
